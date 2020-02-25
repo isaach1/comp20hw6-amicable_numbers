@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Amicable Numbers</title>
+	<script language="javascript">
+		var nums = [];
+		// var testFactor = [1, 24, 5, 3, 17];
+		// var testOne = [];
+		// var testTwo = [];
+		var input;
+		function readInput() 
+		{
+			input = document.getElementById("nums").value;
+			nums = input.split(' ');
+			document.write("<p>Your numbers are: " + nums[0] + " " + nums[1] + "</p>");
+            if (nums[0] < 0 || nums[1] < 0) {
+                document.write("<p>Negative numbers are not allowed, please refresh and try again!</p>");
+                return ;
+            }
+            if (isNaN(nums[0] == true) || isNaN(nums[1]) == true) {
+                document.write("<p>Please refresh and enter a valid, positive number!</p>");
+                return ;
+            }
+            var possibleFirst = getFactors(nums[0]);
+            var j = 0;
+            var firstFactors = [];
+            var possibleSecond = getFactors(nums[1]);
+            var secondFactors = [];
+            var k = 0;
+            for (var i = 0; i < possibleFirst.length; i++) {
+                if (isFactor(nums[0], possibleFirst[i]) == true) {
+                    firstFactors[j] = possibleFirst[i];
+                    j++;
+                }
+            }
+            for (var i = 0; i < possibleSecond.length; i++) {
+                if (isFactor(nums[1], possibleSecond[i]) == true) {
+                    secondFactors[k] = possibleSecond[i];
+                    k++;
+                }
+            }
+            document.write("<p>For " + nums[0] + "</p>");
+            showFactors(firstFactors);
+            document.write("<p>For " + nums[1] + "</p>");
+            showFactors(secondFactors);
+            var firstTotal = addFactors(firstFactors);
+            var secondTotal = addFactors(secondFactors);
+            if (firstTotal == nums[1] && secondTotal == nums[0]) {
+                document.write("<p>These numbers are amicable, congratulations!</p>");
+            } else {
+                document.write("<p>Sorry, these numbers are not amicable.</p>");
+            }
+			// showFactors(testFactor);
+			// var total = addFactors(testFactor);
+			// if (total == 50) { 
+			// 	console.log(total);
+			// }
+			// testOne = getFactors(4);
+			// console.log(testOne);
+			// testTwo = getFactors(10);
+			// console.log(testTwo);
+
+		}
+	
+		// if (isFactor(8, 2) == true) {
+		// 	console.log("This is true and working");
+		// } 
+		// if (isFactor(15, 2) == false) {
+		// 	console.log("This is false and is working");
+		// }
+
+
+		function isFactor(number, test_number)
+		{
+			if ((number % test_number) == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		function showFactors(array) 
+		{
+			document.write("<p>The factors are: </p>");
+			for (var i = 0; i < array.length; i++) {
+				document.write(array[i] + " ");
+			}
+		}
+
+		function addFactors(array) 
+		{
+			var sum = 0;
+			for (var i = 0; i < array.length; i++) {
+				// console.log(array[i]);
+				sum = sum + array[i];
+			}
+			return sum;
+		}
+
+		function getFactors(num) 
+		{
+			var factors = [];
+			var i = 0;
+			counter = 1;
+			while (counter != num) {
+				factors[i] = counter;
+				counter++;
+				i++;
+			}
+			return factors;
+		}
+	</script>
+</head>
+<body>
+	<h1 style="text-align: center">Welcome to the Amicable Numbers Calculator</h1>
+	<form>
+       	Enter the 2 numbers to be checked here: &nbsp;&nbsp;
+        <input type="text" id="nums" name="nums">
+    </form>
+    <button type="submit" onclick="readInput()">Submit numbers</button>
+</body>
+</html>
